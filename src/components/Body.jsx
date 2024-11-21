@@ -1,59 +1,101 @@
-import React, { useState } from "react";
+export default function Body({
+  duration,
+  expectedReturn,
+  initialInvestment,
+  annualInvestment,
+  onDurationChange,
+  onExpectedReturnChange,
+  onInitialInvestmentChange,
+  onAnnualInvestmentChange,
+}) {
+  const handleDurationChange = (event) => {
+    let newDuration = Number(event.target.value);
 
-export default function Body() {
-  const [value, setValue] = useState();
+    if (newDuration < 0) newDuration = 0;
+    if (newDuration > 20) newDuration = 20;
 
-  const handleChange = (event) => {
-    const inputValue = event.target.value;
-
-    if (inputValue === "") {
-      setValue("");
-      return;
-    }
-
-    const newValue = parseFloat(inputValue);
-    if (!isNaN(newValue)) {
-      setValue(newValue);
-    }
+    onDurationChange(newDuration);
   };
 
-  const handleBlur = () => {
-    if (value > 100) setValue(100);
-    if (value < 0) setValue(0);
+  const handleExpectedReturnChange = (event) => {
+    let newExpectedReturn = Number(event.target.value);
+
+    if (newExpectedReturn < 0) newExpectedReturn = 0;
+    if (newExpectedReturn > 100) newExpectedReturn = 100;
+
+    onExpectedReturnChange(newExpectedReturn);
+  };
+
+  const handleInitialInvestmentChange = (event) => {
+    let newInitialInvestment = Number(event.target.value);
+
+    if (newInitialInvestment < 0) newInitialInvestment = 0;
+    if (newInitialInvestment > 10000) newInitialInvestment = 100000;
+
+    onInitialInvestmentChange(newInitialInvestment);
+  };
+
+  const handleAnnualInvestmentChange = (event) => {
+    let newAnnualInvestment = Number(event.target.value);
+
+    if (newAnnualInvestment < 0) newAnnualInvestment = 0;
+    if (newAnnualInvestment > 100000) newAnnualInvestment = 100000;
+
+    onAnnualInvestmentChange(newAnnualInvestment);
   };
 
   return (
     <div id="user-input">
       <div id="input-group ">
         <label id="label">INITIAL INVESTMENT</label>
-        <input id="input"></input>
+        <input
+          id="input"
+          placeholder="0"
+          onChange={handleInitialInvestmentChange}
+          value={initialInvestment}
+          min="0"
+          max="100000"
+        ></input>
       </div>
       <div id="input-group ">
         <label id="label">ANNUAL INVESTMENT</label>
-        <input id="input"></input>
+        <input
+          id="input"
+          placeholder="0"
+          onChange={handleAnnualInvestmentChange}
+          value={annualInvestment}
+          min="0"
+          max="100000"
+        ></input>
       </div>
       <div id="input-group ">
         <label id="label">EXPECTED RETURN</label>
         <input
           id="expected-return-input"
-          placeholder="0"
-          type="number"
-          step="0.1"
-          value={value}
-          min="0"
-          max="100"
-          onChange={handleChange}
-          onBlur={handleBlur}
           style={{
             padding: "8px",
             fontSize: "16px",
             textAlign: "left",
           }}
+          type="number"
+          placeholder="0"
+          step="0.1"
+          onChange={handleExpectedReturnChange}
+          value={expectedReturn}
+          min="0"
+          max="100"
         />
       </div>
       <div id="input-group">
         <label id="label">DURATION</label>
-        <input id="input"></input>
+        <input
+          id="input"
+          placeholder="0"
+          onChange={handleDurationChange}
+          value={duration}
+          min="0"
+          max="20"
+        />
       </div>
     </div>
   );

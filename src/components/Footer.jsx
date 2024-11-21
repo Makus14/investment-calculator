@@ -1,47 +1,39 @@
+import { formatter, calculateInvestmentResults } from "../util/investment";
+
 export default function Footer({
   initialInvestment,
   annualInvestment,
   expectedReturn,
   duration,
 }) {
+  const isAllDataFilled =
+    initialInvestment > 0 &&
+    annualInvestment > 0 &&
+    expectedReturn > 0 &&
+    duration > 0;
+
   const generateRows = () => {
     const rows = [];
-    for (let i = 1; i <= duration; i++) {
+    let resultCalculations = calculateInvestmentResults({
+      initialInvestment,
+      annualInvestment,
+      expectedReturn,
+      duration,
+    });
+    for (let i = 0; i < duration; i++) {
+      let data = resultCalculations[i];
       rows.push(
         <tr key={i}>
-          <td>{i}</td>
-          <td>Investment Value {i}</td>
-          <td>Interest (Year) {i}</td>
-          <td>Total Interest {i}</td>
-          <td>Invested Capital {i}</td>
+          <td>{data.year}</td>
+          <td>{formatter.format(data.valueEndOfYear)}</td>
+          <td>{formatter.format(data.interest)}</td>
+          <td>{formatter.format(data.totalInterest)}</td>
+          <td>{formatter.format(data.valueEndOfYear - data.totalInterest)}</td>
         </tr>
       );
     }
     return rows;
   };
-
-  function calculateInvestmentResults({
-    initialInvestment,
-    annualInvestment,
-    expectedReturn,
-    duration,
-  }) {
-    const annualData = [];
-    let investmentValue = initialInvestment;
-
-    for (let i = 0; i < duration; i++) {
-      const interestEarnedInYear = investmentValue * (expectedReturn / 100);
-      investmentValue += interestEarnedInYear + annualInvestment;
-      annualData.push({
-        year: i + 1, // year identifier
-        interest: interestEarnedInYear, // the amount of interest earned in this year
-        valueEndOfYear: investmentValue, // investment value at end of year
-        annualInvestment: annualInvestment, // investment added in this year
-      });
-    }
-
-    return annualData;
-  }
 
   return (
     <table id="result">
@@ -54,7 +46,15 @@ export default function Footer({
           <th>Invested Capital</th>
         </tr>
       </thead>
-      <tbody id="tbody">{generateRows()}</tbody>
+      <tbody id="tbody">
+        {isAllDataFilled ? (
+          generateRows()
+        ) : (
+          <tr>
+            <td colSpan="5"></td>
+          </tr>
+        )}
+      </tbody>
     </table>
   );
 }

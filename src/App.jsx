@@ -1,22 +1,48 @@
+import { useState } from "react";
 import Header from "./components/Header";
 import Body from "./components/Body";
 import Footer from "./components/Footer";
 
 function App() {
-  let initialInvestment = 10000;
-  let annualInvestment = 1200;
-  let expectedReturn = 6;
-  let duration = 10;
+  const [duration, setDuration] = useState();
+  const [expectedReturn, setExpectedReturn] = useState();
+  const [initialInvestment, setInitialInvestment] = useState();
+  const [annualInvestment, setAnnualInvestment] = useState();
+
+  const handleDurationChange = (newDuration) => {
+    setDuration(newDuration);
+  };
+
+  const handleExpectedReturnChange = (newExpectedReturn) => {
+    setExpectedReturn(newExpectedReturn);
+  };
+
+  const handleInitialInvestmentChange = (newInitialInvestment) => {
+    setInitialInvestment(newInitialInvestment);
+  };
+
+  const handleAnnualInvestment = (newAnnualInvestment) => {
+    setAnnualInvestment(newAnnualInvestment);
+  };
 
   return (
     <>
       <Header />
-      <Body />
-      <Footer
+      <Body
+        duration={duration}
+        expectedReturn={expectedReturn}
         initialInvestment={initialInvestment}
         annualInvestment={annualInvestment}
-        expectedReturn={expectedReturn}
+        onDurationChange={handleDurationChange}
+        onExpectedReturnChange={handleExpectedReturnChange}
+        onInitialInvestmentChange={handleInitialInvestmentChange}
+        onAnnualInvestmentChange={handleAnnualInvestment}
+      />
+      <Footer
         duration={duration}
+        expectedReturn={expectedReturn}
+        initialInvestment={initialInvestment}
+        annualInvestment={annualInvestment}
       />
     </>
   );
