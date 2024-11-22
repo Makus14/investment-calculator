@@ -36,25 +36,23 @@ export default function Footer({
   };
 
   return (
-    <table id="result">
-      <thead id="thead">
-        <tr>
-          <th>Year</th>
-          <th>Investment Value</th>
-          <th>Interest (Year)</th>
-          <th>Total Interest</th>
-          <th>Invested Capital</th>
-        </tr>
-      </thead>
-      <tbody id="tbody">
-        {isAllDataFilled ? (
-          generateRows()
-        ) : (
-          <tr>
-            <td colSpan="5"></td>
-          </tr>
-        )}
-      </tbody>
-    </table>
+    <>
+      {!isAllDataFilled ? (
+        <p style={{ textAlign: "center" }}>Input data.</p>
+      ) : (
+        <table id="result">
+          <thead id="thead">
+            <tr>
+              <th>Year</th>
+              <th>Investment Value</th>
+              <th>Interest (Year)</th>
+              <th>Total Interest</th>
+              <th>Invested Capital</th>
+            </tr>
+          </thead>
+          <tbody id="tbody">{generateRows()}</tbody>
+        </table>
+      )}
+    </>
   );
 }

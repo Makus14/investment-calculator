@@ -4,10 +4,10 @@ import Body from "./components/Body";
 import Footer from "./components/Footer";
 
 function App() {
-  const [duration, setDuration] = useState();
-  const [expectedReturn, setExpectedReturn] = useState();
-  const [initialInvestment, setInitialInvestment] = useState();
-  const [annualInvestment, setAnnualInvestment] = useState();
+  const [duration, setDuration] = useState(0);
+  const [expectedReturn, setExpectedReturn] = useState(0);
+  const [initialInvestment, setInitialInvestment] = useState(0);
+  const [annualInvestment, setAnnualInvestment] = useState(0);
 
   const handleDurationChange = (newDuration) => {
     setDuration(newDuration);

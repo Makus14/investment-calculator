@@ -51,6 +51,8 @@ export default function Body({
         <input
           id="input"
           placeholder="0"
+          type="number"
+          step="1"
           onChange={handleInitialInvestmentChange}
           value={initialInvestment}
           min="0"
@@ -62,6 +64,8 @@ export default function Body({
         <input
           id="input"
           placeholder="0"
+          type="number"
+          step="1"
           onChange={handleAnnualInvestmentChange}
           value={annualInvestment}
           min="0"
@@ -79,7 +83,7 @@ export default function Body({
           }}
           type="number"
           placeholder="0"
-          step="0.1"
+          step="1"
           onChange={handleExpectedReturnChange}
           value={expectedReturn}
           min="0"
@@ -90,6 +94,8 @@ export default function Body({
         <label id="label">DURATION</label>
         <input
           id="input"
+          type="number"
+          step="1"
           placeholder="0"
           onChange={handleDurationChange}
           value={duration}
